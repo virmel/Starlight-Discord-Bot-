@@ -1,11 +1,14 @@
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
+require('dotenv').config();
 const PREFIX = "!"; //Change this to "_" later
 const YouTube = require("simple-youtube-api");
-const youtube = new YouTube("AIzaSyBD53NGSQhp99WNS_jJPHcExM7eWIMr53Q"); //grab API key
+const youtube = new YouTube(process.env.YOUTUBE_API_KEY); //grab API key
 const bot = new Discord.Client({ disableEveryone: true });
 const queue = new Map();
-const token = "NzE2ODM0NzYxNDE4NzM1NjM4.XtRjtg.BKJw6WYGVlBednnh6wm5wiApEos";
+const token = process.env.DISCORD_API_KEY;
+const musicChannel = "music-commands";
+
 
 const commands =
   [`**${PREFIX}p *keywords to YouTube video OR direct link*** -- to play audio`,
@@ -17,7 +20,7 @@ const commands =
   `**${PREFIX}commands** -- to view this list of bot commands`];
 
 
-const musicChannel = "music-commands";
+
 
 bot.on("ready", () => {
   console.log("This bot is online!");

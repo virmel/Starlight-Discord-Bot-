@@ -10,6 +10,16 @@ const token = process.env.DISCORD_API_KEY;
 const musicChannel = "music-commands";
 
 
+//Not sure if implementing LoL functions would be worth the time
+//I can't find how to implement last match. 
+//What did I want out of this originally?
+//I think I wanted an op.gg extension to see if a summoner was MVP or ACE or whatever
+//So I guess I wasn't really looking for a LoL explicit API but just an
+//Also, having a LoL API wrapper wouldn't be sustainable if I were to put that on a Cloud Platform 
+
+
+
+
 const commands =
   [`**${PREFIX}p *keywords to YouTube video OR direct link*** -- to play audio`,
   `**${PREFIX}stop** -- to stop the current audio`,
@@ -25,6 +35,14 @@ const commands =
 bot.on("ready", () => {
   console.log("This bot is online!");
 });
+
+LeagueAPI.getSummonerByName("Virmel")
+  .then(function (accountInfo) {
+    console.log(accountInfo);
+  })
+  .catch(console.log);
+
+
 
 bot.on("message", async (message) => {
   if (message.author.bot) return; //If the message sent was sent by a bot, ignore. 
@@ -52,6 +70,7 @@ bot.on("message", async (message) => {
     if (!permissions.has("SPEAK")) return message.channel.send("I don't have permissions to speak in the channel");
 
 
+
     var video, videos;
 
     try {
@@ -64,12 +83,9 @@ bot.on("message", async (message) => {
         return message.channel.send("I couldn\'t find any search results");
       }
     };
-    //const songInfo = await ytdl.getInfo(args[1]); //The error might stem from here. Because.. if we get rejected here when, say we have a ! message that is NOT a play command, this songInfo will be awaiting and reject the promise. 
+
     const song = {
-      /*
-      title: songInfo.videoDetails.title,
-      url: songInfo.videoDetails.video_url,
-      */
+
       id: video.id,
       title: video.title,
       url: `https://www.youtube.com/watch?v=${video.id}`
@@ -178,10 +194,23 @@ bot.on("message", async (message) => {
     serverQueue.playing = true;
     serverQueue.connection.dispatcher.resume();
     message.channel.send("<@" + message.author + "> has resumed the audio");
-  };
+  }
+
+  //--------------------------------------------------------------------------------------------------------------
+
+
+  else if (message.content.startsWith(`${PREFIX}test`)) {
+
+  }
+
+
+
   return undefined;
 
 });
+
+//------------------------------------------------------------------------------------------------------------------------------
+
 
 function play(guild, song) {
 
@@ -226,7 +255,7 @@ function play(guild, song) {
   const dispatcher = serverQueue.connection
     .play(ytdl(song.url, {
       quality: 'highestaudio',
-      highWaterMark: 1 << 25
+      highWaterMark: 1 << 25  //Combats error 416
     }))
     .on("finish", () => {
       serverQueue.songs.shift() //Song that was just playing is now finished, should be removed now 

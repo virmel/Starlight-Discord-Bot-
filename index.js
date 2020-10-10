@@ -36,12 +36,6 @@ bot.on("ready", () => {
   console.log("This bot is online!");
 });
 
-LeagueAPI.getSummonerByName("Virmel")
-  .then(function (accountInfo) {
-    console.log(accountInfo);
-  })
-  .catch(console.log);
-
 
 
 bot.on("message", async (message) => {

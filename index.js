@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
 require('dotenv').config();
-const PREFIX = "!"; //Change this to "_" later
+const PREFIX = "_"; //Change this to "_" later
 const YouTube = require("simple-youtube-api");
 const youtube = new YouTube(process.env.YOUTUBE_API_KEY); //grab API key
 const bot = new Discord.Client({ disableEveryone: true });

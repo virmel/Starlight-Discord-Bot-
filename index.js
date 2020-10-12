@@ -130,7 +130,7 @@ bot.on("message", async (message) => {
     serverQueue.connection.dispatcher.end()
   }
   //---------------------------------------------------------------------------------------------------------------
-  else if (message.content.startsWith(`${PREFIX}skip` || message.content.startsWith(`${PREFIX}s`))) {
+  else if ((message.content.startsWith(`${PREFIX}skip`) || message.content.startsWith(`${PREFIX}s`))) {
 
     if (!message.member.voice.channel) return message.channel.send("You need to be in a voice channel to use that command");
     if (!serverQueue) return message.channel.send("No song is playing atm");

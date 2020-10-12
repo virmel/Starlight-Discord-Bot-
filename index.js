@@ -1,22 +1,13 @@
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
 require('dotenv').config();
-const PREFIX = "_"; //Change this to "_" later
+const PREFIX = "_";
 const YouTube = require("simple-youtube-api");
 const youtube = new YouTube(process.env.YOUTUBE_API_KEY); //grab API key
 const bot = new Discord.Client({ disableEveryone: true });
 const queue = new Map();
 const token = process.env.DISCORD_API_KEY;
 const musicChannel = "music-commands";
-
-
-//Not sure if implementing LoL functions would be worth the time
-//I can't find how to implement last match. 
-//What did I want out of this originally?
-//I think I wanted an op.gg extension to see if a summoner was MVP or ACE or whatever
-//So I guess I wasn't really looking for a LoL explicit API but just an
-//Also, having a LoL API wrapper wouldn't be sustainable if I were to put that on a Cloud Platform 
-
 
 
 
@@ -267,10 +258,3 @@ function play(guild, song) {
 
 bot.login(token);
 
-//I think what I should do now is...
-//Implement the bot instantly leaving if there is no song available. 
-//We can fix this later.
-//Maybe research how to implement it rather than thinking about it too much
-//What's next after this? 
-//Push the code onto GitHub
-//After pushing the code onto GitHub, research how to maintain the code on a Cloud Computing Service

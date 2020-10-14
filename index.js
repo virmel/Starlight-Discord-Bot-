@@ -117,7 +117,7 @@ bot.on("message", async (message) => {
 
     serverQueue.textChannel.send(`**${song.title}** has been stopped by ` + "<@" + message.author + ">"); //Problem stems from this line
     serverQueue.songs = []
-    //serverQueue.connection.dispatcher.end()  //Do I have to have this?
+    serverQueue.connection.dispatcher.end()  //Do I have to have this?
   }
   //---------------------------------------------------------------------------------------------------------------
   else if ((message.content.startsWith(`${PREFIX}skip`) || message.content.startsWith(`${PREFIX}s`))) {
@@ -135,10 +135,9 @@ bot.on("message", async (message) => {
     }
     else {
       message.channel.send(`**${serverQueue.songs[0].title}** has been skipped by ` + "<@" + message.author + ">");
-      //serverQueue.connection.dispatcher.end();  //TypeError was thrown here when current song was glitched and I tried to skip
+      serverQueue.connection.dispatcher.end();  //TypeError was thrown here when current song was glitched and I tried to skip
     }
 
-    //I think what calling serverQueue.connection.dispatcher.end() does is that it tells the code to just figure itself out via the function created at the bottom 
   }
   //-------------------------------------------------------------------------------------------------------------
   else if (message.content.startsWith(`${PREFIX}commands`)) {

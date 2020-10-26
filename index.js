@@ -9,7 +9,7 @@ const queue = new Map();
 const token = process.env.DISCORD_API_KEY;
 const musicChannel = "music-commands";
 
-
+//Soft reset temp 
 
 const commands =
   [`**${PREFIX}p *keywords to YouTube video OR direct link*** -- to play audio`,
@@ -117,7 +117,7 @@ bot.on("message", async (message) => {
 
     serverQueue.textChannel.send(`**${song.title}** has been stopped by ` + "<@" + message.author + ">"); //Problem stems from this line
     serverQueue.songs = []
-    serverQueue.connection.dispatcher.end()  //Do I have to have this?
+    serverQueue.connection.dispatcher.end()
   }
   //---------------------------------------------------------------------------------------------------------------
   else if ((message.content.startsWith(`${PREFIX}skip`) || message.content.startsWith(`${PREFIX}s`))) {

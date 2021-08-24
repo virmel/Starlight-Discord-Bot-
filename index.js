@@ -55,7 +55,7 @@ bot.on("message", async (message) => {
     if (!permissions.has("SPEAK")) return message.channel.send("I don't have permissions to speak in the channel");
 
 
-    return message.channel.send("!p " + searchString);
+    return message.channel.send("Yo use the other prefix, bros");
 
 
     /*

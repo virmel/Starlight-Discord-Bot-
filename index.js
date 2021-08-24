@@ -54,9 +54,8 @@ bot.on("message", async (message) => {
     if (!permissions.has("CONNECT")) return message.channel.send("I don't have permissions to connect to the voice channel");
     if (!permissions.has("SPEAK")) return message.channel.send("I don't have permissions to speak in the channel");
 
-    var echoMessage = url;
 
-    return message.channel.send("!p " + echoMessage);
+    return message.channel.send("!p " + searchString);
 
 
     /*

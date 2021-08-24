@@ -54,8 +54,12 @@ bot.on("message", async (message) => {
     if (!permissions.has("CONNECT")) return message.channel.send("I don't have permissions to connect to the voice channel");
     if (!permissions.has("SPEAK")) return message.channel.send("I don't have permissions to speak in the channel");
 
+    var echoMessage = url;
+
+    return message.channel.send("!p " + echoMessage);
 
 
+    /*
     var video, videos;
 
     try {
@@ -100,11 +104,15 @@ bot.on("message", async (message) => {
         return message.channel.send(`There was an error connecting to the voice channel: ${error}`);
       }
     }
+    
     else { //There is an existing queue the user can add songs to.
 
       serverQueue.songs.push(song);
       return message.channel.send(`**${song.title}** has been added to the queue`);
     }
+
+    */
+
   }
   //---------------------------------------------------------------------------------------------------------
   else if (message.content.startsWith(`${PREFIX}stop`)) {

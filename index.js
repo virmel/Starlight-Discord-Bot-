@@ -9,7 +9,7 @@ const queue = new Map();
 const token = process.env.DISCORD_API_KEY;
 const musicChannel = "music-commands";
 
-//Soft reset temp 
+
 
 const commands =
   [`**${PREFIX}p *keywords to YouTube video OR direct link*** -- to play audio`,
@@ -19,8 +19,6 @@ const commands =
   `**${PREFIX}pause -- to pause the current audio`,
   `**${PREFIX}resume -- to resume the paused audio`,
   `**${PREFIX}commands** -- to view this list of bot commands`];
-
-
 
 
 bot.on("ready", () => {
@@ -46,7 +44,7 @@ bot.on("message", async (message) => {
 
   //---------------------------------------------------------------------------------------------------------
 
-
+  //PLAY COMMAND
   if (message.content.startsWith(`${PREFIX}p`) && !message.content.startsWith(`${PREFIX}pause`)) {
 
     if (!voiceChannel) return message.channel.send("You need to be in a voice channel to play music");
@@ -55,10 +53,10 @@ bot.on("message", async (message) => {
     if (!permissions.has("SPEAK")) return message.channel.send("I don't have permissions to speak in the channel");
 
 
-    return message.channel.send("Yo use the other prefix, bros");
+    //return message.channel.send("Yo use the other prefix, bros.");
 
 
-    /*
+    
     var video, videos;
 
     try {
@@ -109,11 +107,9 @@ bot.on("message", async (message) => {
       serverQueue.songs.push(song);
       return message.channel.send(`**${song.title}** has been added to the queue`);
     }
-
-    */
-
   }
   //---------------------------------------------------------------------------------------------------------
+  //STOP FUNCTION
   else if (message.content.startsWith(`${PREFIX}stop`)) {
 
     if (!message.member.voice.channel) return message.channel.send("You need to be in a voice channel");

@@ -1,3 +1,6 @@
+//TODO
+//Why isn't the audio working? Bot joins correctly and has a green light to signify that it is streaming audio but no audio
+
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");
 require('dotenv').config();
@@ -94,7 +97,7 @@ bot.on("message", async (message) => {
       try {
         var connection = await voiceChannel.join();
         queueConstructor.connection = connection;
-        play(message.guild, queueConstructor.songs[0]);
+        play(message.guild, queueConstructor.songs[0]);     
       } catch (error) {
         console.log(`There was an error connecting to the voice channel: ${error}`);
         queue.delete(message.guild.id);  //If I remove this, but still have the error, the bot doesn't leave randomly
@@ -205,7 +208,7 @@ function play(guild, song) {
   if (!song) { //If there is no song prepped up in the queue
 
     console.log("Now entering no song available conditional");
-    /*
+    
 
     var finishWhileLoop = false;
 
@@ -228,7 +231,7 @@ function play(guild, song) {
         console.log("Found a song! Hopefully will cancel shutdown");
       }
     };
-    */
+    
 
     serverQueue.textChannel.send("bye");
     serverQueue.voiceChannel.leave();

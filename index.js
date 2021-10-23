@@ -3,7 +3,7 @@
 //I think the youtube middle man api isn't working.
 
 const Discord = require("discord.js");
-const ytdl = require("ytdl-core");
+const ytdl = require("discord-ytdl-core");
 require('dotenv').config();
 const PREFIX = "_";
 const YouTube = require("simple-youtube-api");

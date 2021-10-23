@@ -1,5 +1,6 @@
 //TODO
 //Why isn't the audio working? Bot joins correctly and has a green light to signify that it is streaming audio but no audio
+//I think the youtube middle man api isn't working.
 
 const Discord = require("discord.js");
 const ytdl = require("ytdl-core");

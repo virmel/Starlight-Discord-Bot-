@@ -1,4 +1,6 @@
 const Discord = require('discord.js');
+require('dotenv').config();
+const discordToken = process.env.DISCORD_API_KEY;
 const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
 const client = new Discord.Client();
@@ -51,7 +53,8 @@ client.on('message', async(message) => {
 
 });
 
-const discordToken = process.env.DISCORD_API_KEY;
+console.log(discordToken);
+console.log('yooo');
 client.login(discordToken);
 
 //TODO

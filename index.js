@@ -1,7 +1,44 @@
+const Discord = require('discord.js');
+const ytdl = require('ytdl-core');
+const ytSearch = require('yt-search');
+const client = new Discord.Client();
+const prefix = '_';
+
+client.on('message', (message) => {
+  if(!message.content.startsWith(prefix)) return;
+
+  const args = message.content.slice(prefix.length).split(/ +/);
+  const command = args.shift().toLowerCase();
+
+  //Commands will be below this comment. This can be cleaned up in the future for maintainability/readability.
+  //_______________________________________________________________________________________________________________
+  if(command === 'p' || command === 'play'){
+    //Play command functionality here
+    const voiceChannel = message.member.voice.channel;
+
+    if(!voiceChannel) return message.channel.send('Bruh, you need to be in a voice channel first');
+    const permissions = voiceChannel.permissionsFor(message.client.user);
+    if(!permissions.has('CONNECT')) return message.channel.send("You don't have the correct permissions");
+    if(!permissions.has('SPEAK')) return message.channel.send("You don't have the correct permissions");
+    if(!args.length) return message.channel.send('You gonna give a link or keywords?');
+
+    const connection = await voiceChannel.join();
+  }
+  //________________________________________________________________________________________________________________
+  else if(command === 'leave'){
+
+  }
+
+})
+
+const discordToken = process.env.DISCORD_API_KEY;
+client.login(discordToken);
+
 //TODO
 //Why isn't the audio working? Bot joins correctly and has a green light to signify that it is streaming audio but no audio
 //I think the youtube middle man api isn't working.
 
+/*
 const Discord = require("discord.js");
 const ytdl = require("discord-ytdl-core");
 require('dotenv').config();
@@ -136,7 +173,7 @@ bot.on("message", async (message) => {
 
     if (!grabbedQueue.songs[1]) { //If the song that is playing is the last song in the queue, just skip (aka stop, in this case) the current playing song
       console.log("Skipping current song to go to next queued up song");
-      message.channel.send(`**${serverQueue.songs[0].title}** has been skipped by ` + "<@" + message.author + ">");
+      message.channel.send(`**${serverQueue.songs[0].title}** has been skipped by ` + message.author + ">");
       serverQueue.songs = [];
       serverQueue.connection.dispatcher.end();
     }
@@ -262,4 +299,5 @@ function play(guild, song) {
 
 
 bot.login(token);
+*/
 

@@ -4,7 +4,7 @@ const ytSearch = require('yt-search');
 const client = new Discord.Client();
 const prefix = '_';
 
-client.on('message', (message) => {
+client.on('message', async(message) => {
   if(!message.content.startsWith(prefix)) return;
 
   const args = message.content.slice(prefix.length).split(/ +/);
@@ -23,13 +23,33 @@ client.on('message', (message) => {
     if(!args.length) return message.channel.send('You gonna give a link or keywords?');
 
     const connection = await voiceChannel.join();
+    const videoFinder = async (query) =>{
+
+      const videoResult = await ytSearch(query);
+      return (videoResult.videos.length > 1) ? videoResult.videos[0] : null;
+
+    }
+    const video = await videoFinder(args.join(' '));
+
+    if(video){
+      const stream = ytdl(video.url, {filter: 'audioonly'});
+      connection.play(stream, {seek: 0, volume: 1})
+      .on('finish', () =>{
+        setTimeout(10000);
+        voiceChannel.leave();
+      });
+
+      await message.reply(`Now playing ***${video.title}***`);
+    } else {
+      message.channel.send("No video found");
+    }
   }
   //________________________________________________________________________________________________________________
   else if(command === 'leave'){
 
   }
 
-})
+});
 
 const discordToken = process.env.DISCORD_API_KEY;
 client.login(discordToken);

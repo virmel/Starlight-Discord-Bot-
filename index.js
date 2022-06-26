@@ -48,13 +48,12 @@ client.on('message', async(message) => {
   }
   //________________________________________________________________________________________________________________
   else if(command === 'leave'){
-
+      message.channel.send("testing leave function");
   }
 
 });
 
-console.log(discordToken);
-console.log('yooo');
+
 client.login(discordToken);
 
 //TODO

@@ -4,49 +4,41 @@ const discordToken = process.env.DISCORD_API_KEY;
 const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
 const client = new Discord.Client();
-const prefix = '_';
+const prefix = '@';
 
+
+const karmaKeyMap = new Map();
+
+//TODO
+//Change line 12 with replacing the prefix with a person's @, whatever that is called in the Discord documentation
+//Add the karma counter/storage
 client.on('message', async(message) => {
   if(!message.content.startsWith(prefix)) return;
 
   const args = message.content.slice(prefix.length).split(/ +/);
-  const command = args.shift().toLowerCase();
 
   //Commands will be below this comment. This can be cleaned up in the future for maintainability/readability.
   //_______________________________________________________________________________________________________________
-  if(command === 'p' || command === 'play'){
-    //Play command functionality here
-    const voiceChannel = message.member.voice.channel;
+  if(args.length > 1){ //@Virmel ++++      @Virmel is the 1st argument, ++++ is the second
+    var currentUsername = args[0];
+    var secondArg = args[1];
+    var mentionedUser = Discord.User();
+    mentionedUser.username = currentUsername;
 
-    if(!voiceChannel) return message.channel.send('Bruh, you need to be in a voice channel first');
-    const permissions = voiceChannel.permissionsFor(message.client.user);
-    if(!permissions.has('CONNECT')) return message.channel.send("You don't have the correct permissions");
-    if(!permissions.has('SPEAK')) return message.channel.send("You don't have the correct permissions");
-    if(!args.length) return message.channel.send('You gonna give a link or keywords?');
+    if(secondArg === "++++"){
+      //Grab the mentioned person's id
+      //Discord.User.id 
+      var userManager = Discord.UserManager();
+      var oldKarmaValue = karmaKeyMap.get(currentUsername)
+      karmaKeyMap(currentUsername, oldKarmaValue+1)
+      return message.channel.send("Works");
 
-    const connection = await voiceChannel.join();
-    const videoFinder = async (query) =>{
+      
 
-      const videoResult = await ytSearch(query);
-      return (videoResult.videos.length > 1) ? videoResult.videos[0] : null;
 
-    }
-    const video = await videoFinder(args.join(' '));
-
-    if(video){
-      const stream = ytdl(video.url, {filter: 'audioonly'});
-      connection.play(stream, {seek: 0, volume: 1})
-      .on('finish', () =>{
-        setTimeout(10000);
-        voiceChannel.leave();
-      });
-
-      await message.reply(`Now playing ***${video.title}***`);
-    } else {
-      message.channel.send("No video found");
     }
   }
-  //________________________________________________________________________________________________________________
+  //_________________________________________________________________________________________________________
   else if(command === 'leave'){
       message.channel.send("testing leave function");
   }
